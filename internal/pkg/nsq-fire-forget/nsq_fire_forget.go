@@ -13,38 +13,38 @@ type NsqFireForget struct {
 	env      *platform.Environment
 }
 
-func (nsqFireForget *NsqFireForget) Start() (err error) {
+func (nff *NsqFireForget) Start() (err error) {
 	log.Println("Start example nsq fire n forget consumer")
 	return nil
 }
 
-func (nsqFireForget *NsqFireForget) Stop() {
+func (nff *NsqFireForget) Stop() {
 	log.Println("Stop example nsq fire n forget")
 }
 
-func New() (nsqFireForget *NsqFireForget, err error) {
-	nsqFireForget = &NsqFireForget{}
+func New() (nff *NsqFireForget, err error) {
+	nff = &NsqFireForget{}
 
-	nsqFireForget.env = platform.NewEnvironment()
+	nff.env = platform.NewEnvironment()
 
-	err = nsqFireForget.NsqHandler()
+	err = nff.NsqHandler()
 	if err != nil {
 		log.Fatalln(err)
 	}
-	return nsqFireForget, nil
+	return nff, nil
 }
 
-func (nsqFireForget *NsqFireForget) NsqHandler() (err error) {
+func (nff *NsqFireForget) NsqHandler() (err error) {
 	config := nsq.NewConfig()
-	chanelName := nsqFireForget.env.Nsq.ChanelName
-	log.Println("Chanel NSQ Name", nsqFireForget.env.Nsq)
+	chanelName := nff.env.Nsq.ChanelName
+	log.Println("Chanel NSQ Name", nff.env.Nsq)
 	consum, err := nsq.NewConsumer(chanelName, "ch", config)
 	if err != nil {
 		return err
 	}
 
 	consum.AddHandler(nsq.HandlerFunc(message))
-	err = consum.ConnectToNSQD(nsqFireForget.env.Nsq.Host)
+	err = consum.ConnectToNSQD(nff.env.Nsq.Host)
 	if err != nil {
 		return err
 	}
