@@ -5,11 +5,11 @@ import (
 	"os"
 	"os/signal"
 
-	nsq_fire_forget "github.com/firdasafridi/example-nsq/internal/pkg/nsq-fire-forget"
+	nsqfireforget "github.com/firdasafridi/example-nsq/internal/pkg/nsq-fire-forget"
 )
 
 func main() {
-	nsqFireForget, err := nsq_fire_forget.New()
+	nsqFireForget, err := nsqfireforget.New()
 	if err != nil {
 		log.Fatal(err)
 	}
