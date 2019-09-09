@@ -12,3 +12,5 @@
 *.out
 
 nsq_fire_forget
+
+etc/nsq/env.json
