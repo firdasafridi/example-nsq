@@ -12,5 +12,6 @@
 *.out
 
 nsq_fire_forget
+nsq_producer
 
 etc/nsq/env.json
