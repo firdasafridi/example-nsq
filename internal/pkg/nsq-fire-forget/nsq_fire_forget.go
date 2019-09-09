@@ -29,14 +29,16 @@ func New() (nsqFireForget *NsqFireForget, err error) {
 
 	err = nsqFireForget.NsqHandler()
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 	}
 	return nsqFireForget, nil
 }
 
 func (nsqFireForget *NsqFireForget) NsqHandler() (err error) {
 	config := nsq.NewConfig()
-	consum, err := nsq.NewConsumer("write_test", "ch", config)
+	chanelName := nsqFireForget.env.Nsq.ChanelName
+	log.Println("Chanel NSQ Name", nsqFireForget.env.Nsq)
+	consum, err := nsq.NewConsumer(chanelName, "ch", config)
 	if err != nil {
 		return err
 	}

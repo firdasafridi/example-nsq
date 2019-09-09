@@ -13,7 +13,8 @@ import (
 // Containt NSQ configuration example: "host" : "127.0.0.1:4150"
 //
 type NsqConfig struct {
-	Host string
+	Host       string
+	ChanelName string `json:"chanel_name"`
 }
 
 //
@@ -21,7 +22,7 @@ type NsqConfig struct {
 //
 type Environment struct {
 	DirWork string
-	Nsq     NsqConfig "json:`nsq`"
+	Nsq     NsqConfig `json:"nsq"`
 	Debug   int
 }
 
@@ -60,9 +61,13 @@ func (env *Environment) load() {
 	}
 
 	fmt.Printf("platform: loading configuration from %q ...\n", configPath)
-
 	err = json.Unmarshal(b, env)
 	if err != nil {
 		log.Fatalf("platform: Environment.load: %s: %s", configPath, err.Error())
+	}
+
+	if env.Debug == 1 {
+		log.Println("Debug is active.")
+		log.Println(string(b))
 	}
 }
